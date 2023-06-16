@@ -7,6 +7,7 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
+import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
@@ -16,6 +17,8 @@ import java.util.concurrent.TimeUnit;
 import static luckylau.netty.utils.TimeUtils.getCurrentTime;
 
 /**
+ * NIO编程
+ *
  * @Author luckylau
  * @Date 2019/8/26
  */
@@ -112,7 +115,7 @@ public class TimeServer {
                         readBuffer.flip();
                         byte[] bytes = new byte[readBuffer.remaining()];
                         readBuffer.get(bytes);
-                        String body = new String(bytes, "UTF-8");
+                        String body = new String(bytes, StandardCharsets.UTF_8);
                         System.out.println("The time server receive order : "
                                 + body);
                         String currentTime = "ack it, " + getCurrentTime();

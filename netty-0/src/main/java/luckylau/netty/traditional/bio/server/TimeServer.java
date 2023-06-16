@@ -12,6 +12,8 @@ import java.util.concurrent.Executors;
 import static luckylau.netty.utils.TimeUtils.getCurrentTime;
 
 /**
+ * 传统的BIO编程
+ *
  * @Author luckylau
  * @Date 2019/8/26
  */

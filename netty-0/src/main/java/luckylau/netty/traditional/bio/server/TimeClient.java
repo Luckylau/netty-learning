@@ -7,6 +7,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 /**
+ * 传统的BIO编程
+ *
  * @Author luckylau
  * @Date 2019/8/26
  */

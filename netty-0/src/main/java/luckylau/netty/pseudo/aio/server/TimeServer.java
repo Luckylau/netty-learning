@@ -14,6 +14,8 @@ import java.util.concurrent.TimeUnit;
 import static luckylau.netty.utils.TimeUtils.getCurrentTime;
 
 /**
+ * 伪异步I/O模型图
+ *
  * @Author luckylau
  * @Date 2019/8/26
  */
