@@ -36,7 +36,7 @@ public class HttpFileServer {
 
     public static void main(String[] args) throws Exception {
         int port = 8080;
-        String url = "/netty/learn";
+        String url = "/netty-2";
         NettyServer nettyServer = new NettyServer(port, url);
         nettyServer.start();
 
@@ -218,7 +218,7 @@ public class HttpFileServer {
                         || uri.endsWith(".") || INSECURE_URI.matcher(uri).matches()) {
                     return null;
                 }
-                return System.getProperty("user.dir") + File.separator + uri;
+                return System.getProperty("user.dir") + uri;
             }
 
             private void sendListing(ChannelHandlerContext ctx, File dir) {
