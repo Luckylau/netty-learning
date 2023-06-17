@@ -1,4 +1,4 @@
-/*
+
 package luckylau.netty.serialization.netty.server.protobuf;
 
 import io.netty.bootstrap.Bootstrap;
@@ -10,29 +10,26 @@ import io.netty.handler.codec.protobuf.ProtobufDecoder;
 import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
-import io.netty.handler.codec.serialization.ClassResolvers;
-import io.netty.handler.codec.serialization.ObjectDecoder;
-import io.netty.handler.codec.serialization.ObjectEncoder;
-import luckylau.netty.serialization.netty.server.pojo.SubscribeReq;
+import luckylau.netty.serialization.protobuf.SubscribeReqProto;
+import luckylau.netty.serialization.protobuf.SubscribeRespProto;
 
-*/
 /**
  * @Author luckylau
  * @Date 2019/9/2
  * <p>
  * Creates a client-side handler.
- *//*
+ */
 
 public class SubReqClient {
-    public static void main(String[] args) throws Exception{
-        int port =6666;
+    public static void main(String[] args) throws Exception {
+        int port = 6666;
         NettyClient client = new NettyClient("127.0.0.1", port);
         client.start();
 
     }
 
     static class NettyClient {
-        private int port ;
+        private int port;
         private String host;
 
         public NettyClient(String host, int port) {
@@ -40,11 +37,11 @@ public class SubReqClient {
             this.host = host;
         }
 
-        public void start() throws Exception{
+        public void start() throws Exception {
             connect(host, port);
         }
 
-        private void connect(String host, int port) throws Exception{
+        private void connect(String host, int port) throws Exception {
             EventLoopGroup group = new NioEventLoopGroup();
             try {
                 Bootstrap b = new Bootstrap();
@@ -79,11 +76,9 @@ public class SubReqClient {
         }
 
         private class SubReqClientHandler extends ChannelHandlerAdapter {
-
-            */
-/**
- * Creates a client-side handler.
- *//*
+            /**
+             * Creates a client-side handler.
+             */
 
             public SubReqClientHandler() {
             }
@@ -96,14 +91,13 @@ public class SubReqClient {
                 ctx.flush();
             }
 
-            private SubscribeReq subReq(int i) {
-                SubscribeReq req = new SubscribeReq();
-                req.setAddress("北京市海淀区");
-                req.setEmail("laujunbupt0913@163.com");
-                req.setProductName("Netty-Learn");
-                req.setSubReqID(i);
-                req.setUserName("Luckylau");
-                return req;
+            private SubscribeReqProto.SubscribeReq subReq(int i) {
+                return SubscribeReqProto.SubscribeReq.newBuilder()
+                        .setSubReqID(i)
+                        .setUserName("Luckylau")
+                        .setAddress("北京市海淀区")
+                        .setProductName("Netty-Learn")
+                        .build();
             }
 
 
@@ -134,4 +128,3 @@ public class SubReqClient {
     }
 
 }
-*/

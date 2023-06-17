@@ -1,4 +1,4 @@
-/*
+
 package luckylau.netty.serialization.netty.server.protobuf;
 
 import io.netty.bootstrap.ServerBootstrap;
@@ -10,19 +10,15 @@ import io.netty.handler.codec.protobuf.ProtobufDecoder;
 import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
-import io.netty.handler.codec.serialization.ClassResolvers;
-import io.netty.handler.codec.serialization.ObjectDecoder;
-import io.netty.handler.codec.serialization.ObjectEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
-import luckylau.netty.serialization.netty.server.pojo.SubscribeReq;
-import luckylau.netty.serialization.netty.server.pojo.SubscribeResp;
+import luckylau.netty.serialization.protobuf.SubscribeReqProto;
+import luckylau.netty.serialization.protobuf.SubscribeRespProto;
 
-*/
 /**
  * @Author luckylau
  * @Date 2019/9/2
- *//*
+ */
 
 public class SubReqServer {
     public static void main(String[] args) throws Exception {
@@ -39,10 +35,10 @@ public class SubReqServer {
             this.port = port;
         }
 
-        private void bind(int port) throws Exception{
+        private void bind(int port) throws Exception {
             EventLoopGroup bossGroup = new NioEventLoopGroup();
             EventLoopGroup workerGroup = new NioEventLoopGroup();
-            try{
+            try {
                 ServerBootstrap b = new ServerBootstrap();
                 b.group(bossGroup, workerGroup)
                         .channel(NioServerSocketChannel.class)
@@ -54,13 +50,13 @@ public class SubReqServer {
 
                 f.channel().closeFuture().sync();
 
-            }finally {
+            } finally {
                 bossGroup.shutdownGracefully();
                 workerGroup.shutdownGracefully();
             }
         }
 
-        public void start() throws Exception{
+        public void start() throws Exception {
             System.out.println("The SubReqServer is start in port : " + port);
             bind(port);
         }
@@ -70,7 +66,7 @@ public class SubReqServer {
             protected void initChannel(SocketChannel ch) throws Exception {
                 //进行半包处理
                 ch.pipeline().addLast(
-                new ProtobufVarint32FrameDecoder());
+                        new ProtobufVarint32FrameDecoder());
                 ch.pipeline().addLast(
                         new ProtobufDecoder(
                                 SubscribeReqProto.SubscribeReq
@@ -88,7 +84,7 @@ public class SubReqServer {
             @Override
             public void channelRead(ChannelHandlerContext ctx, Object msg)
                     throws Exception {
-                SubscribeReq req = (SubscribeReq) msg;
+                SubscribeReqProto.SubscribeReq req = (SubscribeReqProto.SubscribeReq) msg;
                 if ("Luckylau".equalsIgnoreCase(req.getUserName())) {
                     System.out.println("Service accept client req : ["
                             + req.toString() + "]");
@@ -96,12 +92,13 @@ public class SubReqServer {
                 }
             }
 
-            private SubscribeResp resp(int subReqID) {
-                SubscribeResp resp = new SubscribeResp();
-                resp.setSubReqID(subReqID);
-                resp.setRespCode(0);
-                resp.setDesc("Thank you !");
-                return resp;
+            private SubscribeRespProto.SubscribeResp resp(int subReqID) {
+                return SubscribeRespProto.SubscribeResp
+                        .newBuilder()
+                        .setSubReqID(subReqID)
+                        .setRespCode(0)
+                        .setDesc("Thank you !")
+                        .build();
             }
 
             @Override
@@ -117,4 +114,3 @@ public class SubReqServer {
 
     }
 }
-*/
