@@ -8,6 +8,8 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
+import java.nio.charset.StandardCharsets;
+
 import static luckylau.netty.utils.TimeUtils.getCurrentTime;
 
 /**
@@ -71,7 +73,7 @@ public class TimeServer {
                 ByteBuf buf = (ByteBuf) msg;
                 byte[] req = new byte[buf.readableBytes()];
                 buf.readBytes(req);
-                String body = new String(req, "UTF-8");
+                String body = new String(req, StandardCharsets.UTF_8);
                 System.out.println("The time netty basic server receive order : " + body);
                 String currentTime = "ack it, " + getCurrentTime();
                 ByteBuf resp = Unpooled.copiedBuffer(currentTime.getBytes());

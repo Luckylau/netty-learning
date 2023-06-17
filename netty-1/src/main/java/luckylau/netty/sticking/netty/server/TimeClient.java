@@ -8,6 +8,8 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
+import java.nio.charset.StandardCharsets;
+
 /**
  * @Author luckylau
  * @Date 2019/8/28
@@ -88,7 +90,7 @@ public class TimeClient {
                 ByteBuf buf = (ByteBuf) msg;
                 byte[] req = new byte[buf.readableBytes()];
                 buf.readBytes(req);
-                String body = new String(req, "UTF-8");
+                String body = new String(req, StandardCharsets.UTF_8);
                 System.out.println("Now is : " + body + " ; the counter is : "
                         + ++counter);
             }

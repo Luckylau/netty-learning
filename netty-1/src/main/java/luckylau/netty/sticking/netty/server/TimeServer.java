@@ -8,6 +8,8 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
+import java.nio.charset.StandardCharsets;
+
 /**
  * @Author luckylau
  * @Date 2019/8/28
@@ -70,7 +72,7 @@ public class TimeServer {
                 byte[] req = new byte[buf.readableBytes()];
                 buf.readBytes(req);
                 //去除最后一个换行符
-                String body = new String(req, "UTF-8").substring(0, req.length
+                String body = new String(req, StandardCharsets.UTF_8).substring(0, req.length
                         - System.getProperty("line.separator").length());
                 System.out.println("The time server receive order : " + body
                         + " ; the counter is : " + ++counter);
