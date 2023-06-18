@@ -1,7 +1,7 @@
 package luckylau.netty.privateprotocol.client;
 
-import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.concurrent.ScheduledFuture;
 import luckylau.netty.privateprotocol.Header;
 import luckylau.netty.privateprotocol.MessageType;
@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
  * @Author luckylau
  * @Date 2019/9/6
  */
-public class HeartBeatReqHandler extends ChannelHandlerAdapter {
+public class HeartBeatReqHandler extends ChannelInboundHandlerAdapter {
 
     private volatile ScheduledFuture<?> heartBeat;
 

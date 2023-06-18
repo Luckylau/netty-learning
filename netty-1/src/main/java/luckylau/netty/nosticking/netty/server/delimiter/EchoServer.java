@@ -72,7 +72,7 @@ public class EchoServer {
 
         }
 
-        class EchoServerHandler extends ChannelHandlerAdapter {
+        class EchoServerHandler extends ChannelInboundHandlerAdapter {
             private int counter;
 
             @Override

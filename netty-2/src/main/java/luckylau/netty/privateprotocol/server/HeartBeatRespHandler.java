@@ -1,7 +1,7 @@
 package luckylau.netty.privateprotocol.server;
 
-import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 import luckylau.netty.privateprotocol.Header;
 import luckylau.netty.privateprotocol.MessageType;
 import luckylau.netty.privateprotocol.NettyMessage;
@@ -10,7 +10,7 @@ import luckylau.netty.privateprotocol.NettyMessage;
  * @Author luckylau
  * @Date 2019/9/6
  */
-public class HeartBeatRespHandler extends ChannelHandlerAdapter {
+public class HeartBeatRespHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg)
             throws Exception {

@@ -65,7 +65,7 @@ public class TimeServer {
 
         }
 
-        class TimeServerHandler extends ChannelHandlerAdapter {
+        class TimeServerHandler extends ChannelInboundHandlerAdapter {
 
             @Override
             public void channelRead(ChannelHandlerContext ctx, Object msg)

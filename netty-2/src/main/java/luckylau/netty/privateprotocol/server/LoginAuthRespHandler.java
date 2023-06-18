@@ -1,7 +1,7 @@
 package luckylau.netty.privateprotocol.server;
 
-import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 import luckylau.netty.privateprotocol.Header;
 import luckylau.netty.privateprotocol.MessageType;
 import luckylau.netty.privateprotocol.NettyMessage;
@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @Author luckylau
  * @Date 2019/9/6
  */
-public class LoginAuthRespHandler extends ChannelHandlerAdapter {
+public class LoginAuthRespHandler extends ChannelInboundHandlerAdapter {
 
     private Map<String, Boolean> nodeCheck = new ConcurrentHashMap<>(16);
     private String[] whitekList = {"127.0.0.1"};

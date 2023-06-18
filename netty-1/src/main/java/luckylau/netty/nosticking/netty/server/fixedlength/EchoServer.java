@@ -67,7 +67,7 @@ public class EchoServer {
 
         }
 
-        class EchoServerHandler extends ChannelHandlerAdapter {
+        class EchoServerHandler extends ChannelInboundHandlerAdapter {
 
             @Override
             public void channelRead(ChannelHandlerContext ctx, Object msg)

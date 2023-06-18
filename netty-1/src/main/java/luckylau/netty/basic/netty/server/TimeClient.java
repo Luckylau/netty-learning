@@ -61,7 +61,7 @@ public class TimeClient {
             }
         }
 
-        private class TimeClientHandler extends ChannelHandlerAdapter {
+        private class TimeClientHandler extends ChannelInboundHandlerAdapter {
 
             private final ByteBuf firstMessage;
 

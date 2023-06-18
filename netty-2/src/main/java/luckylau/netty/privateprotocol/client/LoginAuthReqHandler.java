@@ -1,7 +1,7 @@
 package luckylau.netty.privateprotocol.client;
 
-import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 import luckylau.netty.privateprotocol.Header;
 import luckylau.netty.privateprotocol.MessageType;
 import luckylau.netty.privateprotocol.NettyMessage;
@@ -11,7 +11,7 @@ import luckylau.netty.privateprotocol.NettyMessage;
  * @Author luckylau
  * @Date 2019/9/6
  */
-public class LoginAuthReqHandler extends ChannelHandlerAdapter {
+public class LoginAuthReqHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {

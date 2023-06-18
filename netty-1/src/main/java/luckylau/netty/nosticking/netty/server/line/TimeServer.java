@@ -64,7 +64,7 @@ public class TimeServer {
 
         }
 
-        class TimeServerHandler extends ChannelHandlerAdapter {
+        class TimeServerHandler extends ChannelInboundHandlerAdapter {
             private int counter;
 
             @Override

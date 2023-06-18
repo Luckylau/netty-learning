@@ -63,7 +63,7 @@ public class SubReqClient {
             }
         }
 
-        private class SubReqClientHandler extends ChannelHandlerAdapter {
+        private class SubReqClientHandler extends ChannelInboundHandlerAdapter {
 
             /**
              * Creates a client-side handler.
