@@ -65,6 +65,7 @@ public class TimeServer {
                     Iterator<SelectionKey> it = selectedKeys.iterator();
                     while (it.hasNext()) {
                         SelectionKey key = it.next();
+                        //一定要删除
                         it.remove();
                         try {
                             handleInput(key);
