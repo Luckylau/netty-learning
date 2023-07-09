@@ -70,11 +70,16 @@ public class FileServer {
         }
 
         class FileServerHandler extends SimpleChannelInboundHandler<String> {
+
             @Override
-            public void messageReceived(ChannelHandlerContext ctx, String msg)
+            public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
                     throws Exception {
+                cause.printStackTrace();
+                ctx.close();
+            }
 
-
+            @Override
+            protected void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
                 File file = new File(msg);
                 if (file.exists()) {
                     if (!file.isFile()) {
@@ -91,13 +96,6 @@ public class FileServer {
                 } else {
                     ctx.writeAndFlush("File not found: " + file + CR);
                 }
-            }
-
-            @Override
-            public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
-                    throws Exception {
-                cause.printStackTrace();
-                ctx.close();
             }
         }
     }

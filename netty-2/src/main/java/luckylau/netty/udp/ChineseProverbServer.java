@@ -67,8 +67,14 @@ public class ChineseProverbServer {
             }
 
             @Override
-            public void messageReceived(ChannelHandlerContext ctx, DatagramPacket packet)
+            public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
                     throws Exception {
+                ctx.close();
+                cause.printStackTrace();
+            }
+
+            @Override
+            protected void channelRead0(ChannelHandlerContext ctx, DatagramPacket packet) throws Exception {
                 String req = packet.content().toString(CharsetUtil.UTF_8);
                 System.out.println(req);
                 if ("谚语字典查询?".equals(req)) {
@@ -77,14 +83,6 @@ public class ChineseProverbServer {
                             .sender()));
                 }
             }
-
-            @Override
-            public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
-                    throws Exception {
-                ctx.close();
-                cause.printStackTrace();
-            }
-
         }
     }
 }
