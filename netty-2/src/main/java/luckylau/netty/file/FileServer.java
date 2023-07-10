@@ -69,7 +69,7 @@ public class FileServer {
 
         }
 
-        class FileServerHandler extends SimpleChannelInboundHandler<String> {
+        static class FileServerHandler extends SimpleChannelInboundHandler<String> {
 
             @Override
             public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)

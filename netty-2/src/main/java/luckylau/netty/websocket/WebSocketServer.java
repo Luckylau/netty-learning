@@ -12,7 +12,6 @@ import io.netty.handler.codec.http.websocketx.*;
 import io.netty.handler.stream.ChunkedWriteHandler;
 import io.netty.util.CharsetUtil;
 
-import static io.netty.handler.codec.http.HttpHeaders.isKeepAlive;
 import static io.netty.handler.codec.http.HttpHeaders.setContentLength;
 import static io.netty.handler.codec.http.HttpResponseStatus.BAD_REQUEST;
 import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
@@ -77,7 +76,7 @@ public class WebSocketServer {
 
         }
 
-        class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> {
+        static class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> {
 
             private WebSocketServerHandshaker handshaker;
 
@@ -89,8 +88,8 @@ public class WebSocketServer {
             private void handleHttpRequest(ChannelHandlerContext ctx,
                                            FullHttpRequest req) throws Exception {
 
-                // 如果HTTP解码失败，返回HHTP异常
-                if (!req.getDecoderResult().isSuccess()
+                // 如果HTTP解码失败，返回HTTP异常
+                if (!req.decoderResult().isSuccess()
                         || (!"websocket".equals(req.headers().get("Upgrade")))) {
                     sendHttpResponse(ctx, req, new DefaultFullHttpResponse(HTTP_1_1,
                             BAD_REQUEST));
@@ -102,8 +101,7 @@ public class WebSocketServer {
                         "ws://localhost:8080/websocket", null, false);
                 handshaker = wsFactory.newHandshaker(req);
                 if (handshaker == null) {
-                    WebSocketServerHandshakerFactory
-                            .sendUnsupportedWebSocketVersionResponse(ctx.channel());
+                    WebSocketServerHandshakerFactory.sendUnsupportedVersionResponse(ctx.channel());
                 } else {
                     handshaker.handshake(ctx.channel(), req);
                 }
@@ -132,7 +130,7 @@ public class WebSocketServer {
 
                 // 返回应答消息
                 String request = ((TextWebSocketFrame) frame).text();
-                System.out.println(String.format("%s received %s", ctx.channel(), request));
+                System.out.printf("%s received %s%n", ctx.channel(), request);
                 ctx.channel().write(
                         new TextWebSocketFrame(request
                                 + " , 欢迎使用Netty WebSocket服务，现在时刻："
@@ -142,7 +140,7 @@ public class WebSocketServer {
             private void sendHttpResponse(ChannelHandlerContext ctx,
                                           FullHttpRequest req, FullHttpResponse res) {
                 // 返回应答给客户端
-                if (res.getStatus().code() != 200) {
+                if (res.status().code() != 200) {
                     ByteBuf buf = Unpooled.copiedBuffer(res.getStatus().toString(),
                             CharsetUtil.UTF_8);
                     res.content().writeBytes(buf);
@@ -152,7 +150,7 @@ public class WebSocketServer {
 
                 // 如果是非Keep-Alive，关闭连接
                 ChannelFuture f = ctx.channel().writeAndFlush(res);
-                if (!isKeepAlive(req) || res.getStatus().code() != 200) {
+                if (!HttpUtil.isKeepAlive(req) || res.status().code() != 200) {
                     f.addListener(ChannelFutureListener.CLOSE);
                 }
             }

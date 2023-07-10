@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class LoginAuthRespHandler extends ChannelInboundHandlerAdapter {
 
     private Map<String, Boolean> nodeCheck = new ConcurrentHashMap<>(16);
-    private String[] whitekList = {"127.0.0.1"};
+    private final String[] whiteList = {"127.0.0.1"};
 
 
     @Override
@@ -38,17 +38,18 @@ public class LoginAuthRespHandler extends ChannelInboundHandlerAdapter {
                 InetSocketAddress address = (InetSocketAddress) ctx.channel()
                         .remoteAddress();
                 String ip = address.getAddress().getHostAddress();
-                boolean isOK = false;
-                for (String WIP : whitekList) {
-                    if (WIP.equals(ip)) {
-                        isOK = true;
+                boolean isok = false;
+                for (String wip : whiteList) {
+                    if (wip.equals(ip)) {
+                        isok = true;
                         break;
                     }
                 }
-                loginResp = isOK ? buildResponse((byte) 0)
+                loginResp = isok ? buildResponse((byte) 0)
                         : buildResponse((byte) -1);
-                if (isOK)
+                if (isok) {
                     nodeCheck.put(nodeIndex, true);
+                }
             }
             System.out.println("The login response is : " + loginResp
                     + " body [" + loginResp.getBody() + "]");

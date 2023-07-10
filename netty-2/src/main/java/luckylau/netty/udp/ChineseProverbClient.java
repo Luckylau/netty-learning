@@ -24,7 +24,7 @@ public class ChineseProverbClient {
     }
 
     static class NettyClient {
-        private int port;
+        private final int port;
 
         public NettyClient(int port) {
             this.port = port;

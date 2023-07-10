@@ -30,12 +30,12 @@ public class PrivateProtocolClient {
     }
 
     static class NettyClient {
-        private int port;
+        private final int port;
 
-        private String host;
+        private final String host;
 
 
-        private ScheduledExecutorService executor = Executors
+        private final ScheduledExecutorService executor = Executors
                 .newScheduledThreadPool(1);
 
 

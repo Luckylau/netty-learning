@@ -18,7 +18,7 @@ public final class Header {
     /**
      * 会话ID
      */
-    private long sessionID;
+    private long sessionId;
 
     /**
      * 消息类型
@@ -43,12 +43,12 @@ public final class Header {
         this.length = length;
     }
 
-    public long getSessionID() {
-        return sessionID;
+    public long getSessionId() {
+        return sessionId;
     }
 
-    public void setSessionID(long sessionID) {
-        this.sessionID = sessionID;
+    public void setSessionId(long sessionId) {
+        this.sessionId = sessionId;
     }
 
     public byte getType() {
@@ -88,7 +88,7 @@ public final class Header {
         return "Header{" +
                 "crcCode=" + crcCode +
                 ", length=" + length +
-                ", sessionID=" + sessionID +
+                ", sessionID=" + sessionId +
                 ", type=" + type +
                 ", priority=" + priority +
                 ", attachment=" + attachment +

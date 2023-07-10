@@ -35,7 +35,7 @@ public class NettyMessageDecoder extends LengthFieldBasedFrameDecoder {
         Header header = new Header();
         header.setCrcCode(frame.readInt());
         header.setLength(frame.readInt());
-        header.setSessionID(frame.readLong());
+        header.setSessionId(frame.readLong());
         header.setType(frame.readByte());
         header.setPriority(frame.readByte());
 

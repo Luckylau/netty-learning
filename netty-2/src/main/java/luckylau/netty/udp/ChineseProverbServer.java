@@ -27,7 +27,7 @@ public class ChineseProverbServer {
     }
 
     static class NettyServer {
-        private int port;
+        private final int port;
 
         private NettyServer(int port) {
             this.port = port;
@@ -37,6 +37,7 @@ public class ChineseProverbServer {
             EventLoopGroup group = new NioEventLoopGroup();
             try {
                 Bootstrap b = new Bootstrap();
+                //udp的配置
                 b.group(group).channel(NioDatagramChannel.class)
                         .option(ChannelOption.SO_BROADCAST, true)
                         .handler(new ChineseProverbServerHandler());
@@ -52,7 +53,7 @@ public class ChineseProverbServer {
         }
 
 
-        class ChineseProverbServerHandler extends SimpleChannelInboundHandler<DatagramPacket> {
+        static class ChineseProverbServerHandler extends SimpleChannelInboundHandler<DatagramPacket> {
 
             /**
              * 谚语列表

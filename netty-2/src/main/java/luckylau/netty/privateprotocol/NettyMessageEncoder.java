@@ -6,6 +6,7 @@ import io.netty.handler.codec.MessageToByteEncoder;
 import org.jboss.marshalling.Marshaller;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 /**
@@ -24,11 +25,12 @@ public class NettyMessageEncoder extends
     @Override
     protected void encode(ChannelHandlerContext ctx, NettyMessage msg,
                           ByteBuf sendBuf) throws Exception {
-        if (msg == null || msg.getHeader() == null)
+        if (msg == null || msg.getHeader() == null) {
             throw new Exception("The encode message is null");
+        }
         sendBuf.writeInt((msg.getHeader().getCrcCode()));
         sendBuf.writeInt((msg.getHeader().getLength()));
-        sendBuf.writeLong((msg.getHeader().getSessionID()));
+        sendBuf.writeLong((msg.getHeader().getSessionId()));
         sendBuf.writeByte((msg.getHeader().getType()));
         sendBuf.writeByte((msg.getHeader().getPriority()));
         sendBuf.writeInt((msg.getHeader().getAttachment().size()));
@@ -38,7 +40,7 @@ public class NettyMessageEncoder extends
         for (Map.Entry<String, Object> param : msg.getHeader().getAttachment()
                 .entrySet()) {
             key = param.getKey();
-            keyArray = key.getBytes("UTF-8");
+            keyArray = key.getBytes(StandardCharsets.UTF_8);
             sendBuf.writeInt(keyArray.length);
             sendBuf.writeBytes(keyArray);
             value = param.getValue();
@@ -54,7 +56,7 @@ public class NettyMessageEncoder extends
         sendBuf.setInt(4, sendBuf.readableBytes() - 8);
     }
 
-    private class MarshallingEncoder {
+    private static class MarshallingEncoder {
 
         private final byte[] LENGTH_PLACEHOLDER = new byte[4];
         Marshaller marshaller;

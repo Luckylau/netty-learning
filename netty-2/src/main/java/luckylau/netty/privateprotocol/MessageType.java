@@ -34,9 +34,9 @@ public enum MessageType {
      */
     HEARTBEAT_RESP((byte) 6);
 
-    private byte value;
+    private final byte value;
 
-    private MessageType(byte value) {
+    MessageType(byte value) {
         this.value = value;
     }
 
